@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Welcome to the Media Collection Tracker</h1>
+  {% if user.is_authenticated %}
+    <p>Hello, {{ user.username }}! You are logged in.</p>
+  {% else %}
+    <p>Hello, Guest! Please <a href="{% url 'login' %}">login</a> to access your media collection.</p>
+  {% endif %}
+  <p>This is the home page for the Media Collection Tracker application.</p>
+{% endblock %}
