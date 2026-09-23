@@ -26,13 +26,6 @@ jobs:
       - name: Run tests
         run: python manage.py test
 
-      - name: Run tests with coverage
-        run: |
-          pip install pytest pytest-cov
-          pytest --cov=accounts --cov-report=xml
+      
 
-      - name: Upload coverage
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage
-          path: coverage.xml
+      
