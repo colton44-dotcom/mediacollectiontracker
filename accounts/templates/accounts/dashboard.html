@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Your Dashboard</h1>
+    <a href="#" class="btn btn-primary">+ Add Media</a>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h2 class="display-6">{{ total_count }}</h2>
+                <p class="text-muted mb-0">Total Items</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h2 class="display-6">{{ in_progress|length }}</h2>
+                <p class="text-muted mb-0">In Progress</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h2 class="display-6">{{ planned_count }}</h2>
+                <p class="text-muted mb-0">Planned</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h2 class="display-6">{{ completed_count }}</h2>
+                <p class="text-muted mb-0">Completed</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Recently Added</div>
+            <ul class="list-group list-group-flush">
+                {% for item in recently_added %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>{{ item.title }}</span>
+                    <span class="badge bg-secondary">{{ item.media_type }}</span>
+                </li>
+                {% empty %}
+                <li class="list-group-item text-muted">Nothing yet — add your first item!</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">In Progress</div>
+            <ul class="list-group list-group-flush">
+                {% for item in in_progress %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>{{ item.title }}</span>
+                    <span class="badge bg-primary">{{ item.media_type }}</span>
+                </li>
+                {% empty %}
+                <li class="list-group-item text-muted">Nothing in progress.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

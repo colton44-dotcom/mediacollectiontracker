@@ -65,7 +65,7 @@ class AuthenticationTests(TestCase):
     # ---------- Login ----------
 
     def test_login_success(self):
-        """Valid credentials log the user in and redirect home."""
+        """Valid credentials log the user in and redirect to the dashboard."""
         url = reverse("login")
         response = self.client.post(
             url,
@@ -74,7 +74,7 @@ class AuthenticationTests(TestCase):
         )
 
         self.assertTrue(response.context["user"].is_authenticated)
-        self.assertRedirects(response, reverse("home"))
+        self.assertRedirects(response, reverse("dashboard"))
 
     def test_login_invalid_password(self):
         """Wrong password leaves the user anonymous."""
