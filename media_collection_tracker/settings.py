@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts',
     'crispy_forms',
     'crispy_bootstrap5',
+    'media',
 ]
 
 MIDDLEWARE = [
@@ -126,7 +127,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'home'
 
 STATIC_URL = '/static/'
