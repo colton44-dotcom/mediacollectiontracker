@@ -1,9 +1,10 @@
+
 {% extends "base.html" %}
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="mb-0">Your Dashboard</h1>
-    <a href="#" class="btn btn-primary">+ Add Media</a>
+    <a href="{% url 'add_media' %}" class="btn btn-primary">+ Add Media</a>
 </div>
 
 <div class="row g-4 mb-4">
@@ -48,8 +49,14 @@
             <ul class="list-group list-group-flush">
                 {% for item in recently_added %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>{{ item.title }}</span>
-                    <span class="badge bg-secondary">{{ item.media_type }}</span>
+                    <div>
+                        <strong>{{ item.title }}</strong>
+                        <span class="badge bg-secondary">{{ item.media_type }}</span>
+                    </div>
+                    <div>
+                        <a href="{% url 'edit_media' item.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                        <a href="{% url 'delete_media' item.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </div>
                 </li>
                 {% empty %}
                 <li class="list-group-item text-muted">Nothing yet — add your first item!</li>
@@ -57,14 +64,21 @@
             </ul>
         </div>
     </div>
+
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">In Progress</div>
             <ul class="list-group list-group-flush">
                 {% for item in in_progress %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>{{ item.title }}</span>
-                    <span class="badge bg-primary">{{ item.media_type }}</span>
+                    <div>
+                        <strong>{{ item.title }}</strong>
+                        <span class="badge bg-primary">{{ item.media_type }}</span>
+                    </div>
+                    <div>
+                        <a href="{% url 'edit_media' item.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                        <a href="{% url 'delete_media' item.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </div>
                 </li>
                 {% empty %}
                 <li class="list-group-item text-muted">Nothing in progress.</li>

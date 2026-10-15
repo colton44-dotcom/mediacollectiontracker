@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Media</title>
+</head>
+<body>
+
+    <h1>Delete Media</h1>
+
+    <p>Are you sure you want to delete "{{ media.title }}"?</p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <button type="submit">Yes, Delete</button>
+    </form>
+
+    <a href="{% url 'dashboard' %}">Cancel</a>
+
+</body>
+</html>
