@@ -1,10 +1,37 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block content %}
-  <h1>Welcome to the Media Collection Tracker</h1>
-  {% if user.is_authenticated %}
-    <p>Hello, {{ user.username }}! You are logged in.</p>
-  {% else %}
-    <p>Hello, Guest! Please <a href="{% url 'login' %}">login</a> to access your media collection.</p>
-  {% endif %}
-  <p>This is the home page for the Media Collection Tracker application.</p>
+
+<section class="hero text-center">
+  <div class="container py-5">
+    <h1 class="display-3 fw-bold mb-3">Track everything you love.</h1>
+    <p class="lead mb-4">Movies, shows, books, games — one place, one status, zero chaos.</p>
+    {% if not user.is_authenticated %}
+      <a href="{% url 'register' %}" class="btn btn-light btn-lg px-4 me-2">Get Started Free</a>
+      <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg px-4">Login</a>
+    {% else %}
+      <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg px-4">Go to Dashboard</a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="row text-center g-4">
+    <div class="col-md-4">
+      <i class="bi bi-plus-circle display-5 text-brand"></i>
+      <h4 class="mt-3">Add Anything</h4>
+      <p class="text-muted">Movies, series, books, games — all in one list.</p>
+    </div>
+    <div class="col-md-4">
+      <i class="bi bi-bar-chart display-5 text-brand"></i>
+      <h4 class="mt-3">Track Progress</h4>
+      <p class="text-muted">Planned, in progress, or completed — always know where you stand.</p>
+    </div>
+    <div class="col-md-4">
+      <i class="bi bi-graph-up-arrow display-5 text-brand"></i>
+      <h4 class="mt-3">See Your Stats</h4>
+      <p class="text-muted">Dashboards and counts that update as you go.</p>
+    </div>
+  </div>
+</section>
+
 {% endblock %}
