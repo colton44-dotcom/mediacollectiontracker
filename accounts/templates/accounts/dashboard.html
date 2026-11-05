@@ -1,100 +1,99 @@
-
-{% extends "base.html" %}
-
+{% extends 'base.html' %}
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="mb-0">Your Dashboard</h1>
-    <a href="{% url 'add_media' %}" class="btn btn-primary">+ Add Media</a>
-</div>
+<div class="container py-4">
 
-<div class="row g-4 mb-4">
-    <div class="col-md-3">
-        <div class="card text-center">
-            <div class="card-body">
-                <h2 class="display-6">{{ total_count }}</h2>
-                <p class="text-muted mb-0">Total Items</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card text-center">
-            <div class="card-body">
-                <h2 class="display-6">{{ in_progress|length }}</h2>
-                <p class="text-muted mb-0">In Progress</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card text-center">
-            <div class="card-body">
-                <h2 class="display-6">{{ planned_count }}</h2>
-                <p class="text-muted mb-0">Planned</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card text-center">
-            <div class="card-body">
-                <h2 class="display-6">{{ completed_count }}</h2>
-                <p class="text-muted mb-0">Completed</p>
-            </div>
-        </div>
-    </div>
-</div>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Your Dashboard</h2>
+    <a href="{% url 'add_media' %}" class="btn btn-primary">+ Add Item</a>
+  </div>
 
-<div class="row g-4">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">Recently Added</div>
-            <ul class="list-group list-group-flush">
-                {% for item in recently_added %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <strong>{{ item.title }}</strong>
-                        <span class="badge bg-secondary">{{ item.media_type }}</span>
-
-                        {% if item.status == "Completed" %}
-                        <span class="badge bg-success">{{ item.status }}</span>
-                        {% elif item.status == "In Progress" %}
-                         <span class="badge bg-primary">{{ item.status }}</span>
-                         {% elif item.status == "Planned" %}
-                          <span class="badge bg-warning text-dark">{{ item.status }}</span>
-                         {% else %}
-                         <span class="badge bg-info text-dark">{{ item.status }}</span>
-                         {% endif %}
-                    </div>
-                    <div>
-                        <a href="{% url 'edit_media' item.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
-                        <a href="{% url 'delete_media' item.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
-                    </div>
-                </li>
-                {% empty %}
-                <li class="list-group-item text-muted">Nothing yet — add your first item!</li>
-                {% endfor %}
-            </ul>
+  <!-- STAT CARDS -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+      <div class="card stat-card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="text-muted small text-uppercase">Total</div>
+          <div class="fs-2 fw-bold">{{ total_count }}</div>
         </div>
+      </div>
     </div>
-
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">In Progress</div>
-            <ul class="list-group list-group-flush">
-                {% for item in in_progress %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <strong>{{ item.title }}</strong>
-                        <span class="badge bg-primary">{{ item.media_type }}</span>
-                    </div>
-                    <div>
-                        <a href="{% url 'edit_media' item.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
-                        <a href="{% url 'delete_media' item.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
-                    </div>
-                </li>
-                {% empty %}
-                <li class="list-group-item text-muted">Nothing in progress.</li>
-                {% endfor %}
-            </ul>
+    <div class="col-6 col-md-3">
+      <div class="card stat-card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="text-muted small text-uppercase">Planned</div>
+          <div class="fs-2 fw-bold text-brand">{{ planned_count }}</div>
         </div>
+      </div>
     </div>
+    <div class="col-6 col-md-3">
+      <div class="card stat-card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="text-muted small text-uppercase">In Progress</div>
+          <div class="fs-2 fw-bold text-warning">{{ in_progress|length }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card stat-card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="text-muted small text-uppercase">Completed</div>
+          <div class="fs-2 fw-bold text-success">{{ completed_count }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IN PROGRESS -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white fw-semibold">In Progress</div>
+    <ul class="list-group list-group-flush">
+      {% for item in in_progress %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>
+            {{ item.title }}
+            <span class="badge rounded-pill bg-warning text-dark ms-2">{{ item.status }}</span>
+          </span>
+          <div class="d-flex gap-2">
+            <a href="{% url 'edit_media' item.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+            <form method="post" action="{% url 'delete_media' item.pk %}" class="m-0"
+                  onsubmit="return confirm('Delete {{ item.title }}?');">
+              {% csrf_token %}
+              <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+            </form>
+          </div>
+        </li>
+      {% empty %}
+        <li class="list-group-item text-muted">Nothing in progress.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- RECENTLY ADDED -->
+  <div class="card border-0 shadow-sm">
+    <div class="card-header bg-white fw-semibold">Recently Added</div>
+    <ul class="list-group list-group-flush">
+      {% for item in recently_added %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>
+            {{ item.title }}
+            <span class="badge rounded-pill bg-secondary ms-2">{{ item.status }}</span>
+          </span>
+          <div class="d-flex gap-2">
+            <a href="{% url 'edit_media' item.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+            <form method="post" action="{% url 'delete_media' item.pk %}" class="m-0"
+                  onsubmit="return confirm('Delete {{ item.title }}?');">
+              {% csrf_token %}
+              <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+            </form>
+          </div>
+        </li>
+      {% empty %}
+        <li class="list-group-item text-muted">
+          No items yet — <a href="{% url 'add_media' %}">add one!</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
 </div>
 {% endblock %}
