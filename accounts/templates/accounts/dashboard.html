@@ -2,10 +2,23 @@
 {% block content %}
 <div class="container py-4">
 
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="mb-0">Your Dashboard</h2>
-    <a href="{% url 'add_media' %}" class="btn btn-primary">+ Add Item</a>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="mb-0">Your Dashboard</h2>
+
+  <div class="d-flex gap-2">
+    <a href="{% url 'media_status_report' %}"
+       class="btn btn-outline-primary">
+      View Status Report
+    </a>
+
+    <a href="{% url 'add_media' %}"
+       class="btn btn-primary">
+      + Add Item
+    </a>
   </div>
+</div>
+
 
   <!-- STAT CARDS -->
   <div class="row g-3 mb-4">

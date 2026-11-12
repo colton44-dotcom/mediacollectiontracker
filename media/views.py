@@ -55,3 +55,23 @@ def delete_media(request, media_id):
     return render(request, 'media/delete_media.html', {
         'media': media
     })
+
+
+@login_required
+def media_status_report(request):
+    media_items = Media.objects.filter(user=request.user)
+
+    status_counts = [
+        {
+            'name': label,
+            'count': media_items.filter(status=value).count()
+        }
+        for value, label in Media.STATUS_CHOICES
+    ]
+
+    context = {
+        'status_counts': status_counts,
+        'total_media': media_items.count(),
+    }
+
+    return render(request, 'media/status_report.html', context)
