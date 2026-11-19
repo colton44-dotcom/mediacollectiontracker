@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Media Collection Summary</h2>
+    <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">Back to Dashboard</a>
+  </div>
+
+  <div class="card border-0 shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">Category</th>
+            <th scope="col" class="text-end">Total</th>
+            <th scope="col" class="text-end">Completed</th>
+            <th scope="col" class="text-end">In Progress</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in report %}
+            <tr>
+              <td class="fw-semibold">{{ row.label }}</td>
+              <td class="text-end">{{ row.total }}</td>
+              <td class="text-end text-success fw-semibold">{{ row.completed }}</td>
+              <td class="text-end text-warning fw-semibold">{{ row.in_progress }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot class="table-light fw-bold">
+          <tr>
+            <td>All Categories</td>
+            <td class="text-end">{{ totals.total }}</td>
+            <td class="text-end text-success">{{ totals.completed }}</td>
+            <td class="text-end text-warning">{{ totals.in_progress }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  {% if totals.total == 0 %}
+    <p class="text-muted mt-3">
+      No items yet — <a href="{% url 'add_media' %}">add your first item</a> to populate this report.
+    </p>
+  {% endif %}
+
+</div>
+{% endblock %}

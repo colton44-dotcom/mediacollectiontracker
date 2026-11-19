@@ -10,7 +10,8 @@ class MediaItemForm(forms.ModelForm):
             'media_type',
             'genre',
             'release_year',
-            'personal_rating',
             'status',
+            'rating',        
             'notes',
         ]
+        

@@ -7,4 +7,5 @@ urlpatterns = [
     path('edit-media/<int:media_id>/', views.edit_media, name='edit_media'),
     path('delete-media/<int:media_id>/', views.delete_media, name='delete_media'),
     path('status-report/', views.media_status_report, name='media_status_report'),
+    path('summary/', views.media_collection_summary, name='media_collection_summary'),
 ]
